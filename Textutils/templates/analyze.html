@@ -4,10 +4,34 @@
     <meta charset="UTF-8">
     <title>Analyze</title>
 </head>
-<body>
-    <h1>Your Analyzed Text - {{purpose}}</h1>
-    <p>
-        {{analyzed_text}}
-    </p>
+<body style="font-family: Arial, sans-serif; margin: 20px;">
+
+    <h1>Your Analyzed Text</h1>
+
+    <!-- Purpose List -->
+    <h2>Operations Performed:</h2>
+    <ul>
+        {% for item in purpose_list %}
+        <li>{{ item }}</li>
+        {% empty %}
+        <li>No operations selected</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Analyzed Text -->
+    <h2>Result:</h2>
+    <textarea
+        name="text"
+        rows="15"
+        cols="100"
+        placeholder="Empty..."
+        style="resize: none; font-size: 16px; padding: 10px;"
+        readonly>{{ analyzed_text }}</textarea>
+
+    <br><br>
+
+    <!-- Back Button -->
+    <a href="/" style="font-size: 18px; text-decoration: none; color: blue;">⬅ Back to Home</a>
+
 </body>
 </html>

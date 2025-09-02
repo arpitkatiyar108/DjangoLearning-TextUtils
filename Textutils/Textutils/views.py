@@ -5,7 +5,7 @@
 # ================================
 
 # Importing required modules from Django
-from django.http import HttpResponse      # For sending simple HTTP responses (not used much here, but useful for debugging)
+from django.http import HttpResponse      # For sending plain text responses (not used much here)
 from django.shortcuts import render       # For rendering templates (HTML files)
 
 
@@ -14,8 +14,8 @@ from django.shortcuts import render       # For rendering templates (HTML files)
 # ---------------------------
 def home(request):
     """
-    This function will handle requests for the homepage.
-    It will simply render and return the 'home.html' template.
+    Handles requests for the homepage.
+    It simply renders and returns the 'home.html' template.
     """
     return render(request, 'home.html')   # Render = combine template + optional data
 
@@ -25,42 +25,60 @@ def home(request):
 # ---------------------------
 def analyze(request):
     """
-    This function processes the input text based on user selection.
-    Right now, it removes punctuation if the 'removepunch' option is ON.
+    This function processes the input text based on user selections.
+    Current options:
+        - Remove Punctuations
+        - Convert to Uppercase
+        - Remove Newlines
+        - Remove Spaces
+        - Character Count
     """
 
-    # 1. Get text input from the request (using GET method for now).
-    #    If no text is provided, use 'DefaultText' as fallback.
-    text = request.GET.get('text', 'DefaultText')
+    # 1. Get text input from the request (from the GET method).
+    #    If no text is provided, 'No Text Found!' will be used.
+    text = request.GET.get('text', 'No Text Found!')
 
-    # 2. Check if the 'Remove Punctuation' option was selected.
-    #    If the checkbox is not selected, it will be 'off'.
+    # 2. Get all checkbox values (ON/OFF switches).
     removepunch = request.GET.get('removepunch', 'off')
+    uppercase = request.GET.get('uppercase', 'off')
+    newlineremoval = request.GET.get('newlineremoval', 'off')
+    spaceremoval = request.GET.get('spaceremoval', 'off')
+    charcount = request.GET.get('charcount', 'off')
 
-    # 3. Initialize an empty string for storing the analyzed text.
-    analyzed_text = ''
+    # 3. Initialize required variables.
+    analyzed_text = text   # Start with original text
+    purpose_text_list = [] # Keep track of transformations applied
 
-    # 4. Define a list of punctuations to remove.
+    # 4. Define list of punctuation characters.
     punctuations = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''
 
-    # 5. If 'removepunch' is ON, loop through the input text and build a new string
-    #    without punctuation characters.
+    # 5. Apply transformations in sequence (order matters).
     if removepunch == 'on':
-        for char in text:
-            if char not in punctuations:
-                analyzed_text += char
-    else:
-        # If option is not ON, just keep the text as it is.
-        analyzed_text = text
+        analyzed_text = ''.join(char for char in analyzed_text if char not in punctuations)
+        purpose_text_list.append("Punctuations Removed")
 
-    # 6. Prepare parameters (dictionary) to pass to the template.
-    #    These variables can be displayed in the HTML file.
+    if uppercase == 'on':
+        analyzed_text = analyzed_text.upper()
+        purpose_text_list.append("Converted to Uppercase")
+
+    if newlineremoval == 'on':
+        analyzed_text = analyzed_text.replace("\n", " ").replace("\r", " ")
+        purpose_text_list.append("New Lines Removed")
+
+    if spaceremoval == 'on':
+        analyzed_text = analyzed_text.replace(" ", "")
+        purpose_text_list.append("Spaces Removed")
+
+    if charcount == 'on':
+        # Character count is informational → doesn’t modify text
+        purpose_text_list.append(f"Character Count: {len(analyzed_text)}")
+
+    # 6. Prepare context (dictionary) to pass to template.
     params = {
-        'purpose': 'Removed Punctuations' if removepunch == 'on' else 'No Changes',
-        'text': text,                       # Original text
-        'removepunch': removepunch,         # Status of checkbox
+        'purpose_list': purpose_text_list,  # List of applied operations
+        'text': text,                       # Original input text
         'analyzed_text': analyzed_text      # Final processed text
     }
 
-    # 7. Render the 'analyze.html' template and send params to it.
+    # 7. Render 'analyze.html' and pass the context.
     return render(request, 'analyze.html', params)

@@ -9,6 +9,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Home - Text Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            resize: none;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .option {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
@@ -28,17 +60,39 @@
             name="text"
             rows="15"
             cols="100"
-            placeholder="Type or paste your text here..."
-            style="resize: none; font-size: 16px; padding: 10px;"></textarea>
+            placeholder="Type or paste your text here..."></textarea>
         <br><br>
 
-        <!-- Checkbox for 'Remove Punctuations' -->
-        <input type="checkbox" name="removepunch" id="removepunch">
-        <label for="removepunch">Remove Punctuations</label>
-        <br><br>
+        <!-- Options -->
+        <div class="option">
+            <input type="checkbox" name="removepunch" id="removepunch">
+            <label for="removepunch">Remove Punctuations</label>
+        </div>
+
+        <div class="option">
+            <input type="checkbox" name="uppercase" id="uppercase">
+            <label for="uppercase">Uppercase</label>
+        </div>
+
+        <div class="option">
+            <input type="checkbox" name="newlineremoval" id="newlineremoval">
+            <label for="newlineremoval">New Line Removal</label>
+        </div>
+
+        <div class="option">
+            <input type="checkbox" name="spaceremoval" id="spaceremoval">
+            <label for="spaceremoval">Space Removal</label>
+        </div>
+
+        <div class="option">
+            <input type="checkbox" name="charcount" id="charcount">
+            <label for="charcount">Character Count</label>
+        </div>
+
+        <br>
 
         <!-- Submit Button -->
-        <button type="submit" style="padding: 10px 20px; font-size: 16px;">
+        <button type="submit">
             Analyze Text
         </button>
     </form>
