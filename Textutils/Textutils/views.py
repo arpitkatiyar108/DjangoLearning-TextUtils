@@ -4,4 +4,20 @@ from django.shortcuts import render
 
 
 def home(request) :
-    return HttpResponse('''<h1>Hello, World!</h1>Home<br><a href="https://www.codewithharry.com/">Harry's Website</a>''')
+    return HttpResponse('''HOME!''')
+
+def removepunc(request) :
+    return HttpResponse('''REMOVE!''')
+
+def capfirst(request) :
+    return HttpResponse('''CAP FIRST''')
+
+def newlineremove(request) :
+    return HttpResponse('''NEWLINE REMOVE!''')
+
+def spaceremove(request) :
+    return HttpResponse('''SPACE REMOVE!''')
+
+def charcount(request) :
+    return HttpResponse('''CHARACTER COUNT!''')
+
