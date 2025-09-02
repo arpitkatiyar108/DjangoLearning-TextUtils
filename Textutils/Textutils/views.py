@@ -9,7 +9,10 @@ def home(request) :
     # <h3><a href="/">Back</a></h3>
     # ''')
 
-def removepunc(request) :
+def removepunch(request) :
+    # GET the text
+    DJText = request.GET.get('text','default')
+    # Analyze the text
     return HttpResponse('''REMOVE!
     <h3><a href="/">Back</a></h3>
     ''')
