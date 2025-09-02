@@ -1,15 +1,47 @@
+<!-- ================================
+ home.html
+ Author: Arpit Katiyar
+ Purpose: Homepage for Text Analyzer App
+ ================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Home - Text Analyzer</title>
 </head>
 <body>
-    <h1>Weclome to the Text Analyzer. Enter your text below: </h1>
-    <form action="/removepunch" method="get">
-        <textarea name="text" rows="15" style="width: 836px; height: 311px;"></textarea>
-        <br>
-        <button type="submit">Analyze Text</button>
+
+    <!-- Page Heading -->
+    <h1>Welcome to the Text Analyzer</h1>
+    <p>Enter your text below and select options to analyze it:</p>
+
+    <!-- ============================
+         FORM SECTION
+         - action="/analyze" : when submitted, data goes to 'analyze' view
+         - method="get"      : data will be passed in URL (GET request)
+    ============================ -->
+    <form action="/analyze" method="get">
+
+        <!-- Textarea for user to input text -->
+        <textarea
+            name="text"
+            rows="15"
+            cols="100"
+            placeholder="Type or paste your text here..."
+            style="resize: none; font-size: 16px; padding: 10px;"></textarea>
+        <br><br>
+
+        <!-- Checkbox for 'Remove Punctuations' -->
+        <input type="checkbox" name="removepunch" id="removepunch">
+        <label for="removepunch">Remove Punctuations</label>
+        <br><br>
+
+        <!-- Submit Button -->
+        <button type="submit" style="padding: 10px 20px; font-size: 16px;">
+            Analyze Text
+        </button>
     </form>
+
 </body>
 </html>
