@@ -51,9 +51,9 @@
     <!-- ============================
          FORM SECTION
          - action="/analyze" : when submitted, data goes to 'analyze' view
-         - method="get"      : data will be passed in URL (GET request)
+         - method="post"      : data will be passed in URL (POST request)
     ============================ -->
-    <form action="/analyze" method="get">
+    <form action="/analyze/" method="post"> {% csrf_token %}
 
         <!-- Textarea for user to input text -->
         <textarea

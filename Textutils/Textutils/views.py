@@ -34,16 +34,16 @@ def analyze(request):
         - Character Count
     """
 
-    # 1. Get text input from the request (from the GET method).
+    # 1. Get text input from the request (from the POST method).
     #    If no text is provided, 'No Text Found!' will be used.
-    text = request.GET.get('text', 'No Text Found!')
+    text = request.POST.get('text', 'No Text Found!')
 
     # 2. Get all checkbox values (ON/OFF switches).
-    removepunch = request.GET.get('removepunch', 'off')
-    uppercase = request.GET.get('uppercase', 'off')
-    newlineremoval = request.GET.get('newlineremoval', 'off')
-    spaceremoval = request.GET.get('spaceremoval', 'off')
-    charcount = request.GET.get('charcount', 'off')
+    removepunch = request.POST.get('removepunch', 'off')
+    uppercase = request.POST.get('uppercase', 'off')
+    newlineremoval = request.POST.get('newlineremoval', 'off')
+    spaceremoval = request.POST.get('spaceremoval', 'off')
+    charcount = request.POST.get('charcount', 'off')
 
     # 3. Initialize required variables.
     analyzed_text = text   # Start with original text
